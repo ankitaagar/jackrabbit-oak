@@ -136,7 +136,7 @@ public class MongoVersionGCSupport extends VersionGCSupport {
             // makes any future similar problem more visible than long running
             // queries alone (15min is still long).
             Iterable<NodeDocument> iterable = filter(transform(getNodeCollection().find(query)
-                    .maxTime(15, TimeUnit.MINUTES),
+                    .maxTime(15, TimeUnit.MINUTES).hintString("_sdType_1__sdMaxRevTime_1"),
                     new Function<BasicDBObject, NodeDocument>() {
                 @Override
                 public NodeDocument apply(BasicDBObject input) {
